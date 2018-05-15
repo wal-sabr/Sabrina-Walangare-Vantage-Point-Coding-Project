@@ -1,0 +1,159 @@
+This is the brainstorming process for completing the coding project.
+We have these following steps:
+Step 1. Write a script that determines the distance between two players in an immersive environment.
+Step 2. Create a simple web-based database that stores the data between the main player and their IPD within the experience.
+Step 3. Write an algorithm that develops insights based on interpersonal distance.
+You can develop whatever "insights" you want.
+
+Answer
+Q1. Write a script that determines the distance between two players in an immersive environment.
+- Find a way to determine the distance between two objects
+- For easier code, we are going to use Unity Game Engine and their library
+- We are going to use C#
+- based on the Unity documentation, we can use Vector3.Distance;
+	- Advantage:
+		- Easy to use
+		- From the official documentation itself
+	- Disadvantage:
+		- Slow, not efficient
+- Another way is by do substraction between Object1 and Object2 in 3 axis: X axis, Y axis and Z axis.
+
+Sample:
+using UnityEngine;
+using System.Collections;
+// we set the public class Test
+
+public class Test: MonoBehaviour {
+	private Vector3 firstObject;
+	private Vector3 secondObject;
+	
+	// This is the initialization part, where we set the initial coordinates // for both objects
+	void Start()
+	{
+		firstObject = new Vector3(1, 1, 1);
+		secondObject = new Vector3(2, 2, 2);
+	}
+	
+	//This is the checking the position of the objects
+	void Test()
+	{
+		Vector3 heading;
+		float distance;
+		Vector3 direction;
+		float distanceSquared;
+		
+		// For loop for checking the heading and the direction of the objects
+		for(int i = 0; i < 10000; i++)
+		{
+			heading.x = firstObject.x - secondObject.x;
+			heading.y = firstObject.y - secondObject.y;
+			heading.z = firstObject.z - secondObject.z;
+			
+			distanceSquared = (heading.x * heading.x) + (heading.y * heading.y) + (heading.z * heading.z);
+			// distance is the magnitude of the vector
+			distance = Mathf.Sqrt(distanceSquared);
+			
+			direction.x = heading.x / distance;
+			direction.y = heading.y / distance;
+			direction.z = heading.z / distance;			
+		}
+		
+	}
+	
+	// for the update
+	void Update()
+	{
+		Test();
+	}
+}
+
+
+
+Q2. Create a simple web-based database that stores the data between the main player and their IPD within the experience.
+-- IPD means Interpupillary Distance
+-- Headset IPD means to the distance between the lenses
+-- we are going to make a database that store the player information
+-- it will have name or username, headset number, and IPD
+-- the file is saved under name "testData.sql"
+CREATE DATABASE IF NOT EXISTS dataTest;
+Use dataTest;
+
+CREATE TABLE Users (
+UserId INT NOT NULL auto_increment,
+HeadsetNo varchar(255) NOT NULL,
+PRIMARY KEY (UserId)); 
+
+Q3. Write an algorithm that develops insights based on interpersonal distance.
+You can develop whatever "insights" you want.
+-- The Script is going to check if the distance between the two objects is too far or too near
+-- 3 Checking condition :
+--	1. Distance is too near
+--	2. Distance is too far
+--	3. Distance is within the "right" range
+-- We need to determine the "right" range, we are going to pick arbitary point range = 5 to 7.
+
+using UnityEngine;
+using System.Collections;
+ 
+public class  : MonoBehaviour {
+	
+	private Vector3 sourceObject;
+	private Vector3 targetObject;
+	
+	// Coordinate initialization
+	void Start(){
+		sourceObject = new Vector3(0, 0, 0);
+		targetObject = new Vector3(1, 1, 2);
+	}
+	
+	void Test(){
+		Vector3[] positionArray = new [] { new Vector3(0f,0f,0f), new Vector3(1f,1f,1f) };
+		float distance;
+		Vector3 personalSpace;
+		
+		// If the target in range, if there is no one, we don't care
+		if(targetsRange.Count >0){
+		// Any target in range
+			for (int i = 0; i < targetsRange.Count; i++){
+				// Get distance between the target and sourceObject
+				distance = Vector3.Distance(targetsRange[i].transform.position, source.position);
+				//Check if target is too close to the source
+				if (distance <= personalSpace){
+				// Print message "To close to <Source>"
+				print("You are too close to the target");				
+				}
+				//Check if target is too far from source
+				else if(distance >= personalSpace){
+				// Print message "Too near to <Target>"
+					print("You are too far to the target");
+				}
+				//If the target in the correct range
+				else{
+					print("You are on the right range with the target");
+				} 
+			}
+		}
+	}
+	
+    void Update() {
+		Test();
+    }
+ 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
